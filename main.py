@@ -1,8 +1,8 @@
 from runGitleaks import RunGitleaks
 from printData import PrintData
 from processData import ProcessData
-from getArgs.py import GetArgs
-
+from getArguments import GetArguments
 
 if __name__=='__main__':
-    pass
+    args = GetArguments().get_args()
+    print(f"arguments: {args}")

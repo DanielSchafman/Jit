@@ -1,7 +1,7 @@
 import sys
 from typing import List
 
-class GetArgs:
+class GetArguments:
     def __init__(self) -> None:
 
         if len(sys.argv) > 1:
