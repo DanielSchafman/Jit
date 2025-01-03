@@ -2,6 +2,7 @@ from getArguments import GetArguments
 from runGitleaks import RunGitleaks
 from processData import ProcessData
 from logData import LogData
+from deleteFiles import DeleteFiles
 
 
 class RunScript():
@@ -22,3 +23,5 @@ class RunScript():
         data_transformed = processor.transform_data(data)
         printer = LogData(data_transformed)
         printer.print_to_console()
+        deleter = DeleteFiles(self.output_file)
+        deleter.delete_file()
