@@ -13,14 +13,38 @@ class RunGitleaks:
 
 
     def run_tool(self) -> None:
-        command = ["gitleaks"] + self.args + ["--report-path", self.output_file]
-        try:
-            subprocess.run(command, check=True)
 
-        except subprocess.CalledProcessError as e:
-            print(f"Error running gitleaks: {e}")
-            raise
+        self.command = self.args
+        self.result = subprocess.run(self.command, capture_output=True, text=True)
+
+
 
     
+    def check_result(self) -> str:
+        if self.result.returncode == 0:
+            print(f"Gitleaks completed and no leaks found")
+        elif self.result.returncode == 1:
+            if "leaks found" in self.result.stderr.lower():
+                print(f"Leaks were found during the scan:\n{self.result.stderr}")
+            else:
+                print(f"Gitleaks did not run as excpected Error:\n{self.result.stderr}")
+                raise subprocess.CalledProcessError(
+                    returncode=self.result.returncode,
+                    cmd=self.command,
+                    output=self.result.stdout,
+                    stderr=self.result.stderr
+                )
+        else:
+            print(f"Error running gitleaks with status code {self.result.returncode}.\n{self.result.stderr}")
+            raise subprocess.CalledProcessError(
+                returncode=self.result.returncode,
+                cmd=self.command,
+                output=self.result.stdout,
+                stderr=self.result.stderr
+            )        
+
+
+        pass
+
     def get_output_file(self) -> str:
         return self.output_file

@@ -2,8 +2,9 @@
 
 Thinking process
 1. run main.py
-2. run runGitleaks.py
-3. run processData.py
-4. run printData.py
+2. run getArguments.py
+3. run runGitleaks.py
+4. run processData.py
+5. run printData.py
 
 
