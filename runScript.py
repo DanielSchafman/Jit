@@ -19,9 +19,11 @@ class RunScript():
             print(f"Error: {e}")
 
         processor = ProcessData(self.output_file)
-        data = processor.read_output_file()
-        data_transformed = processor.transform_data(data)
-        printer = LogData(data_transformed)
-        printer.print_to_console()
-        deleter = DeleteFiles(self.output_file)
-        deleter.delete_file()
+        try:
+            structured_findings = processor.process_data()
+            printer = LogData(structured_findings)
+            printer.print_to_console()
+            deleter = DeleteFiles(self.output_file)
+            deleter.delete_file()
+        except Exception as e:
+            print(f"An error occurred: {e}")            
