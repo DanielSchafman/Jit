@@ -4,6 +4,11 @@ from pydantic import BaseModel
 import json
 import os
 
+
+
+#Class ErrorModer - Using Pydantic to create formate for the errors
+#Class RunGitleaks - run gitleaks using the flags given, if there is an error to write it to the temp file. if not return True to continue the process.
+
 class ErrorModel(BaseModel):
     exit_code: int
     error_message: str
@@ -16,7 +21,7 @@ class RunGitleaks:
     def run_tool(self) -> None:
         self.result = subprocess.run(self.args, capture_output=True, text=True)
 
-    def check_result(self) -> bool:
+    def check_result(self, is_path_exist: bool) -> bool:
         if self.result.returncode == 0:
             if not os.path.exists(self.output_file):
                 print("No leaks found. Writing default output to file.")
@@ -26,8 +31,12 @@ class RunGitleaks:
             if os.path.exists(self.output_file):
                 return True
             if "unknown flag" in self.result.stderr.lower():
-                self.error_message = f"Gitleaks scan failed: invalid argument '{' '.join(self.args[1:])}'"
-                self.write_error_to_file(self.result.returncode, self.error_message)
+                if is_path_exist:
+                    self.error_message = f"Gitleaks scan failed: invalid argument '{' '.join(self.args[1:])}'"
+                    self.write_error_to_file(self.result.returncode, self.error_message)
+                else:
+                    self.error_message = f"Gitleaks scan failed: invalid argument '{' '.join(self.args[1:-2])}'"
+                    self.write_error_to_file(self.result.returncode, self.error_message)
                 return False
             else:
                 self.error_message = "Run without output or non existing path"

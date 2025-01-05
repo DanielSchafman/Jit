@@ -2,7 +2,9 @@ from getArguments import GetArguments
 from runGitleaks import RunGitleaks, ErrorModel
 from processData import ProcessData
 from logData import LogData
-from deleteFiles import DeleteFiles  # Assume this deletes a single file
+from deleteFiles import DeleteFiles 
+
+#Class RunScript - Running all the functions in order
 
 class RunScript:
     def run_script(self):
@@ -15,7 +17,7 @@ class RunScript:
         try:
             gitleaks_runner.run_tool()
 
-            if gitleaks_runner.check_result():
+            if gitleaks_runner.check_result(check_if_report_path_exist):
                 processor = ProcessData(output_file)
                 structured_findings = processor.process_data()
                 processor.write_findings_to_file(structured_findings)

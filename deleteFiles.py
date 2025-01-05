@@ -1,5 +1,7 @@
 import os
 
+#Class to delete the temp file in the end of the process if there is no --report-path in the flags
+
 class DeleteFiles:
     def __init__(self, file_name: str) -> None:
         self.file_name = file_name

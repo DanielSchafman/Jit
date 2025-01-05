@@ -3,6 +3,9 @@ import os
 from pydantic import BaseModel
 from typing import List
 
+#Class Leak and Findings - using Pydantic library to formart the ouput
+#Class ProcessData - Read the ouput of gitleaks - format it - and write the new data
+
 class Leak(BaseModel):
     filename: str
     line_range: str

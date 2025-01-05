@@ -1,6 +1,8 @@
 import json
 from pydantic import BaseModel
 
+#Class to print the output to the console
+
 class LogData:
     def __init__(self, data: BaseModel) -> None:
         self.data = data

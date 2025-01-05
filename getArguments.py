@@ -2,14 +2,16 @@ import sys
 from typing import List
 import secrets
 
+#Class to get random file for the output_file if not given in the flags, and getting all the flags
+
 class GetArguments:
     def __init__(self) -> None:
         if len(sys.argv) > 1:
             self.args = sys.argv[1:]
         else:
             self.args = []
-        random_hash = secrets.token_hex(8)
-        self.output_file = f"./output_{random_hash}.json"
+        self.random_hash = secrets.token_hex(8)
+        self.output_file = f"./output_{self.random_hash}.json"
 
     def get_output_file(self) -> str:
         if "--report-path" in self.args:
