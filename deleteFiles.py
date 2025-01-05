@@ -1,8 +1,9 @@
 import os
 
 class DeleteFiles:
-    def __init__(self, file_name: str) -> None:
+    def __init__(self, file_name: str, args: list[str]) -> None:
         self.file_name = file_name
+        self.args = args
 
 
     def delete_file(self) -> None:

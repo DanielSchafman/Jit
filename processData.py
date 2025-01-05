@@ -16,9 +16,6 @@ class ProcessData:
         self.output_file = output_file
 
     def read_output_file(self) -> List[dict]:
-        if not os.path.exists(self.output_file):
-            raise FileNotFoundError(f"Output file does not exist: {self.output_file}")
-
         with open(self.output_file, "r") as file:
             data = json.load(file)
         return data
@@ -36,3 +33,8 @@ class ProcessData:
             ]
         )
         return findings
+
+    def write_findings_to_file(self,findings: Findings) -> None:
+        findings_dict = findings.dict()
+        with open(self.output_file, "w") as file:
+            json.dump(findings_dict,file, indent=4)

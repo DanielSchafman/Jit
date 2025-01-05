@@ -7,4 +7,4 @@ class LogData:
         self.data = data
 
     def print_to_console(self) -> None:
-        print(self.data.model_dump_json(indent=4))
+        print(self.data.json(indent=4))
