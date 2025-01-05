@@ -1,5 +1,4 @@
 import json
-from typing import Dict
 from pydantic import BaseModel
 
 class LogData:
@@ -7,4 +6,5 @@ class LogData:
         self.data = data
 
     def print_to_console(self) -> None:
-        print(self.data.json(indent=4))
+        formatted_json = json.dumps(self.data.model_dump(), indent=4)
+        print(formatted_json)

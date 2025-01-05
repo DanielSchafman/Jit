@@ -2,7 +2,6 @@ import sys
 from typing import List
 import secrets
 
-
 class GetArguments:
     def __init__(self) -> None:
         if len(sys.argv) > 1:
@@ -20,11 +19,9 @@ class GetArguments:
         return self.output_file
 
     def check_if_report_path_exist(self) -> bool:
-        if "--report-path" not in self.args:
-            return False
+        return "--report-path" in self.args
 
-    def get_args(self):
+    def get_args(self) -> List[str]:
         if "--report-path" not in self.args:
-            self.args.append("--report-path")
-            self.args.append(self.output_file)
+            self.args.extend(["--report-path", self.output_file])
         return self.args
