@@ -8,7 +8,7 @@ class DeleteFiles:
 
     def delete_file(self) -> None:
         try:
-            os.path.exists(self.file_name)
-            os.remove(self.file_name)
+            if os.path.exists(self.file_name):
+                os.remove(self.file_name)
         except Exception as e:
             print(f"Error deleting file {self.file_name}: {e}")

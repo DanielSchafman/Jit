@@ -23,13 +23,19 @@ class RunGitleaks:
 
     def check_result(self, is_path_exist: bool) -> bool:
         if self.result.returncode == 0:
-            if not os.path.exists(self.output_file):
-                print("No leaks found. Writing default output to file.")
+            self.error_message = f"Exit with status code 0"
+            self.write_error_to_file(self.result.returncode, self.error_message)
             return True
 
         if self.result.returncode >= 1:
             if os.path.exists(self.output_file):
                 return True
+            elif(str(self.args[2]) != "gitleaks"):
+                self.error_message = f"First argument must be 'gitleaks'"
+                self.write_error_to_file(self.result.returncode, self.error_message)
+                return False
+            
+
             if "unknown flag" in self.result.stderr.lower():
                 if is_path_exist:
                     self.error_message = f"Gitleaks scan failed: invalid argument '{' '.join(self.args[1:])}'"

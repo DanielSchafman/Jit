@@ -45,7 +45,7 @@ class ProcessData:
                 Leak(
                     filename=leak.get("File", "unknown"),
                     line_range=f"{leak.get('StartLine', 'unknown')}-{leak.get('EndLine', 'unknown')}",
-                    description=f"Identified a pattern that may indicate {leak.get('Description', 'a potential secret.')} key"
+                    description=f"Identified a pattern that may indicate {leak.get('Description', 'a potential secret.')}"
                 )
                 for leak in findings_list
             ]
